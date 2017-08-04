@@ -1,6 +1,6 @@
 import { CustomersAppPage } from './app.po';
 
-describe('customers-app App', () => {
+describe('ng-node-firebase-frontend App', () => {
   let page: CustomersAppPage;
 
   beforeEach(() => {

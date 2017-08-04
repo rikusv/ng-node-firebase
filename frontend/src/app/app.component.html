@@ -1,0 +1,19 @@
+<nav>
+  <a routerLink="/find" routerLinkActive="active">Find Customer</a>
+  <a routerLink="/new" routerLinkActive="active">Add Customer</a>
+  <button *ngIf="(user | async)?.uid" (click)="signOut()"
+    class="btn btn-success">Sign out</button>
+  <button *ngIf="!(user | async)?.uid" (click)="signIn()"
+    class="btn btn-success">Sign in</button>
+</nav>
+
+<div *ngIf="!(user | async)?.uid" class="container">
+  <h1>Please sign in.</h1>
+  <div *ngIf="loginPending">Signing in...</div>
+  <!-- <form #loginForm="ngForm" (ngSubmit)="onSubmit()"> -->
+  <button *ngIf="!(user | async)?.uid && !loginPending"
+    (click)="signIn()" class="btn btn-success">Sign in</button>
+  <!-- </form> -->
+</div>
+
+<router-outlet *ngIf="(user | async)?.uid"></router-outlet>

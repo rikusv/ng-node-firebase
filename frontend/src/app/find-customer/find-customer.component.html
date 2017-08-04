@@ -1,0 +1,16 @@
+{{diagnostic}}
+<div class="container">
+  <h1>Find Customer</h1>
+  <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+  <div>
+    <ul>
+      <li *ngFor="let customer of customers | async" (click)="gotoDetail(customer)">
+        {{customer.firstName}} {{customer.lastName}},
+        {{customer.idNumber}},
+        {{customer.email}},
+        {{customer.phone}},
+        {{customer.address}}
+      </li>
+    </ul>
+  </div>
+</div>

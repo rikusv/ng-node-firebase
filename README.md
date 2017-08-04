@@ -62,13 +62,25 @@ For local development, also set BONSAI_URL in `backend/.env` (for standalone mod
 
 ## How to run it on Heroku
 
-## Manual deployment
+### Manual command line deployment
 
-set env var
+For the first deployment, environment variables need to be set:
 
+```
+heroku login
+cd ng-node-firebase
+heroku config:set FIREBASE_URL=https://ng-node-firebase.firebaseio.com
+heroku config:set FIREBASE_KEY={"type": "service_account","project_id":... (Firebase Admin SDK service account private key JSON as single line)
+heroku config:set BONSAI_URL=https://key:secret@host (should have been set automatically during add-on creation)
+```
+
+Thereafter, each deployment simply needs:
+
+```
 heroku login
 cd ng-node-firebase
 git push heroku master
+```
 
 ### Automatic deployment
 

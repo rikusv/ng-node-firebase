@@ -6,6 +6,7 @@
     "node": "^6.9.x"
   },
   "scripts": {
+    "preinstall": "npm install -g angular-cli",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",

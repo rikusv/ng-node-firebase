@@ -7,6 +7,7 @@
   },
   "scripts": {
     "preinstall": "npm install -g angular-cli",
+    "postinstall": "ng build --env=prod",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",

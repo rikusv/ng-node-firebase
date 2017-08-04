@@ -7,7 +7,7 @@
   },
   "scripts": {
     "preinstall:backend": "cd backend && npm install",
-    "preinstall:frontend": "cd frontend && npm install && ng build --env=prod",
+    "preinstall:frontend": "cd frontend && npm install",
     "preinstall": "npm run preinstall:backend && npm run preinstall:frontend",
     "start": "node server.js"
   },

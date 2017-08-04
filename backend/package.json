@@ -1,0 +1,16 @@
+{
+  "name": "ng-node-firebase-frontend",
+  "version": "0.0.1",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "rikusv@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "assert": "^1.4.1",
+    "dotenv": "^4.0.0",
+    "firebase-admin": "^5.1.0"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "ng-node-firebase",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "preinstall:backend": "cd backend && npm install",
+    "preinstall:frontend": "cd frontend && npm install && ng build --env=prod",
+    "preinstall": "npm run preinstall:backend && npm run preinstall:frontend",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rikusv/ng-node-firebase.git"
+  },
+  "author": "rikusv@gmail.com",
+  "license": "MIT",
+  "homepage": "https://github.com/rikusv/ng-node-firebase#readme",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "express": "^4.15.3"
+  }
+}

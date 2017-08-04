@@ -2,6 +2,9 @@
   "name": "ng-node-firebase",
   "version": "1.0.0",
   "main": "server.js",
+  "engines": {
+    "node": "^6.9.x"
+  },
   "scripts": {
     "preinstall:backend": "cd backend && npm install",
     "preinstall:frontend": "cd frontend && npm install && ng build --env=prod",

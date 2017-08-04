@@ -2,6 +2,9 @@
   "name": "ng-node-firebase-frontend",
   "version": "0.0.0",
   "license": "MIT",
+  "engines": {
+    "node": "^6.9.x"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

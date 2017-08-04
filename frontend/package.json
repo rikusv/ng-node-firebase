@@ -6,7 +6,6 @@
     "node": "^6.9.x"
   },
   "scripts": {
-    "preinstall": "npm install -g angular-cli",
     "postinstall": "ng build --env=prod",
     "ng": "ng",
     "start": "ng serve",
@@ -17,6 +16,8 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/cli": "1.2.6",
+    "@angular/compiler-cli": "^4.0.0",
     "@angular/animations": "^4.0.0",
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",

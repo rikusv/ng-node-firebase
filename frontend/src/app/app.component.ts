@@ -22,9 +22,8 @@ export class AppComponent implements OnInit {
 
 
   user: Observable<firebase.User>
-  loginPending = false
 
-  title = 'Demo app using Angular, Node.js and Express.js';
+  // loading = false
 
   ngOnInit() {
     this.authService.check();
@@ -36,6 +35,10 @@ export class AppComponent implements OnInit {
 
   signOut() {
     this.authService.signOut();
+  }
+
+  gotoGithub() {
+    window.location.href = 'https://github.com/rikusv/ng-node-firebase';
   }
 
 }

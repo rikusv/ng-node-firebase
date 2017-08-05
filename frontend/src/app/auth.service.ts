@@ -21,7 +21,7 @@ export class AuthService {
   user: Observable<firebase.User>
   token: Observable<firebase.User>
   tokenId: String
-  loginPending = false;
+  loading = false;
 
   check() {
     var authService = this;
@@ -46,14 +46,14 @@ export class AuthService {
   }
 
   signIn() {
+    this.loading = true;
     var authService = this;
-    this.loginPending = true;
     this.afAuth.auth.signInAnonymously()
       .then(data => {
-        this.loginPending = false;
+        this.loading = false;
       })
       .catch((err: firebase.FirebaseError) => {
-        this.loginPending = false;
+        this.loading = false;
         var errorCode = err.code;
         var errorMessage = err.message;
         if (errorCode === 'auth/operation-not-allowed') {
@@ -66,6 +66,8 @@ export class AuthService {
 
   signOut() {
     this.afAuth.auth.signOut();
+    this.userService.setToken(null);
+    this.tokenId = '';
   }
 
 }

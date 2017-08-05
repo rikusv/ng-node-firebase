@@ -1,16 +1,27 @@
-{{diagnostic}}
-<div class="container">
-  <h1>Find Customer</h1>
-  <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
-  <div>
-    <ul>
-      <li *ngFor="let customer of customers | async" (click)="gotoDetail(customer)">
-        {{customer.firstName}} {{customer.lastName}},
-        {{customer.idNumber}},
-        {{customer.email}},
-        {{customer.phone}},
-        {{customer.address}}
-      </li>
-    </ul>
+<div class="vertical-container">
+  <div class="search-container-search">
+    <md-input-container class="input-wide">
+      <input #searchBox id="search-box" mdInput placeholder="Search"
+        (keyup)="search(searchBox.value)">
+    </md-input-container>
+  </div>
+  <div class="search-container-result">
+    <md-card class="card" *ngFor="let customer of customers | async"
+      (click)="gotoDetail(customer)">
+      <md-card-header>
+        <md-card-title>
+          {{customer.firstName}} {{customer.lastName}}
+          <span></span>
+        </md-card-title>
+        <md-card-subtitle>
+          ID: {{customer.idNumber}}
+        </md-card-subtitle>
+      </md-card-header>
+      <md-card-content>
+        <span>Email: {{customer.email}}</span>
+        <span>Phone: {{customer.phone}}</span>
+        <span>Address: {{customer.address}}</span>
+      </md-card-content>
+    </md-card>
   </div>
 </div>

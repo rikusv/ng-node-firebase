@@ -35,8 +35,13 @@ export class FindCustomerComponent implements OnInit {
 
   uri = environment.dataService.url + environment.dataService.path;
 
+  title = 'Find'
+
+  loading = false
+
   // Push a search term into the observable stream.
   search(term: string): void {
+    this.loading = true
     this.searchTerms.next(term);
   }
 
@@ -50,16 +55,16 @@ export class FindCustomerComponent implements OnInit {
         // or empty if no search term
         : Observable.of<Customer[]>([]))
       .catch(error => {
+        this.loading = false
         console.log(error);
         return Observable.of<Customer[]>([]);
       });
   }
 
   gotoDetail(customer: Customer): void {
-    alert('Customer view to be implemente')
+    alert('Customer view to be implemented')
     // let link = ['/view', customer.id];
     // this.router.navigate(link);
   }
-
 
 }

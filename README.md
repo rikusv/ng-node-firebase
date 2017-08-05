@@ -17,6 +17,23 @@ Additional:
 
 An Angular front-end web application accesses a Firebase database via a Node Express.js backend service. The backend service uses Elasticsearch for search customers.
 
+### Backend API service
+
+The Express.js server:
+
+- Listens to Firebase changes and updates an index on Elasticsearch.
+- Responds to requests at `/api`.
+- Checks that the user token sent with POST requests corresponds to a valid user in the database (i.e. that user is logged in).
+- Queries Elasticsearch and sends JSON result for valid requests like `/api/v1/customers?$prefix=something`.
+
+### Frontend app
+
+The Angular app lets user:
+
+- Log in anonymously to the database.
+- Find customers.
+- Add customers.
+
 ## How to set it up?
 
 The Angular app (`frontend`) and Node.js service (`backend`) are each their own npm project with their own scripts, so that they are easily separable. For convenience, they are bundled into this root ng-node-firebase npm project with its own scripts so that they can also easily be deployed together (e.g. to a single Heroku project). If they are run on different hosts or ports,  `environment.dataService.url` (frontend/src/environments/environment.prod-standalone.ts) should be maintained in the Angular app to point to the backend service.

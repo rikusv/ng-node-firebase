@@ -66,3 +66,7 @@ md-spinner.spinner-small {
   float: right;
   padding-right: 16px;
 }
+
+md-option.small {
+  font-size: 12px;
+}

@@ -5,8 +5,12 @@ import {MdSnackBar} from '@angular/material';
 import { HttpClient } from '@angular/common/http'; // to be moved to separate service
 import { HttpHeaders } from '@angular/common/http'; // to be moved to separate service
 import { Observable }        from 'rxjs/Observable';
+import { Subject }           from 'rxjs/Subject';
 
 import { environment } from '../../environments/environment';
+
+import { Address } from '../address';
+import { AddressService } from '../address.service';
 
 import { Customer } from '../customer';
 import { CustomerService } from '../customer.service';
@@ -17,14 +21,18 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA
   selector: 'app-new-customer',
   templateUrl: './new-customer.component.html',
   styleUrls: ['./new-customer.component.css'],
-  providers: [CustomerService]
+  providers: [CustomerService, AddressService]
 })
 export class NewCustomerComponent implements OnInit {
 
   @ViewChild("customerForm") customerForm: NgForm;
 
+  addresses: Observable<Address[]>;
+  private addressSearchTerms = new Subject<string>();
+
   constructor(
     private customerService: CustomerService,
+    private addressService: AddressService,
     private http: HttpClient,
     public snackBar: MdSnackBar
   ) { }
@@ -81,6 +89,24 @@ export class NewCustomerComponent implements OnInit {
       );
   }
 
-  ngOnInit() { }
+  // Push a search term into the observable stream.
+  search(term: string): void {
+    this.addressSearchTerms.next(term);
+  }
+
+  ngOnInit(): void {
+    this.addresses = this.addressSearchTerms
+      .debounceTime(300) // keystroke delay
+      .distinctUntilChanged() // don't search same term again
+      .switchMap(term => term // switch to new observable each time the term changes
+        // return the http search observable
+        ? this.addressService.search(term)
+        // or empty if no search term
+        : Observable.of<Address[]>([]))
+      .catch(error => {
+        console.log(error);
+        return Observable.of<Address[]>([]);
+      });
+  }
 
 }

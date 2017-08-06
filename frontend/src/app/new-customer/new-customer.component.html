@@ -1,45 +1,52 @@
 <div class="vertical-container">
-<form #customerForm="ngForm" (ngSubmit)="onSubmit()">
+  <form #customerForm="ngForm" (ngSubmit)="onSubmit()">
 
-  <md-card class="card">
-    <md-card-header>
-      <md-card-title>New Customer</md-card-title>
-    </md-card-header>
-    <md-card-content>
-      <md-input-container class="input-wide">
-        <input mdInput placeholder="First Name" [(ngModel)]="customer.firstName"
-          name=firstName>
-      </md-input-container>
-      <md-input-container class="input-wide">
-        <input mdInput placeholder="Last Name" [(ngModel)]="customer.lastName"
-          name=lastName>
-      </md-input-container>
-      <md-input-container class="input-wide">
-        <input mdInput placeholder="ID Number" [(ngModel)]="customer.idNumber"
-          name=idNumber>
-      </md-input-container>
-      <md-input-container class="input-wide">
-        <input mdInput placeholder="Email" [formControl]="emailFormControl"
-          [(ngModel)]="customer.email" name=email>
-        <md-error *ngIf="emailFormControl.hasError('pattern')">
-          Please enter a valid email address
-        </md-error>
-      </md-input-container>
-      <md-input-container class="input-wide">
-        <input mdInput placeholder="Phone" [(ngModel)]="customer.phone"
-          name=phone>
-      </md-input-container>
-      <md-input-container class="input-wide">
-        <input mdInput placeholder="Address" [(ngModel)]="customer.address"
-          name=address>
-      </md-input-container>
-      <span>{{ status }}</span>
-    </md-card-content>
-    <md-card-actions>
-      <button type="submit" md-button>Submit</button>
-      <md-spinner *ngIf="loading" class="spinner-small"></md-spinner>
-    </md-card-actions>
-  </md-card>
+    <md-card class="card">
+      <md-card-header>
+        <md-card-title>New Customer</md-card-title>
+      </md-card-header>
+      <md-card-content>
+        <md-input-container class="input-wide">
+          <input mdInput placeholder="First Name" [(ngModel)]="customer.firstName"
+            name=firstName>
+        </md-input-container>
+        <md-input-container class="input-wide">
+          <input mdInput placeholder="Last Name" [(ngModel)]="customer.lastName"
+            name=lastName>
+        </md-input-container>
+        <md-input-container class="input-wide">
+          <input mdInput placeholder="ID Number" [(ngModel)]="customer.idNumber"
+            name=idNumber>
+        </md-input-container>
+        <md-input-container class="input-wide">
+          <input mdInput placeholder="Email" [formControl]="emailFormControl"
+            [(ngModel)]="customer.email" name=email>
+          <md-error *ngIf="emailFormControl.hasError('pattern')">
+            Please enter a valid email address
+          </md-error>
+        </md-input-container>
+        <md-input-container class="input-wide">
+          <input mdInput placeholder="Phone" [(ngModel)]="customer.phone"
+            name=phone>
+        </md-input-container>
+        <md-input-container class="input-wide">
+          <input mdInput #addressSearchBox placeholder="Address" [(ngModel)]="customer.address"
+            name=address [mdAutocomplete]="addressAuto"
+            (keyup)="search(addressSearchBox.value)">
+        </md-input-container>
+        <md-autocomplete #addressAuto="mdAutocomplete">
+          <md-option *ngFor="let address of addresses | async"
+            [value]="address.short" class="small">
+            {{ address.short }}
+          </md-option>
+        </md-autocomplete>
+        <span>{{ status }}</span>
+      </md-card-content>
+      <md-card-actions>
+        <button type="submit" md-button>Submit</button>
+        <md-spinner *ngIf="loading" class="spinner-small"></md-spinner>
+      </md-card-actions>
+    </md-card>
 
-</form>
+  </form>
 </div>

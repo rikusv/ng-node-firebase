@@ -19,7 +19,8 @@ import {
   MdMenuModule,
   MdCardModule,
   MdSnackBarModule,
-  MdProgressSpinnerModule
+  MdProgressSpinnerModule,
+  MdAutocompleteModule
 } from '@angular/material';
 
 import { environment } from '../environments/environment';
@@ -73,7 +74,8 @@ const appRoutes: Routes = [
     MdMenuModule,
     MdCardModule,
     MdSnackBarModule,
-    MdProgressSpinnerModule
+    MdProgressSpinnerModule,
+    MdAutocompleteModule
   ],
   providers: [
     CustomerService,

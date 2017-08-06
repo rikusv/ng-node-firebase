@@ -1,0 +1,26 @@
+<md-dialog-content [ngSwitch]="authService.status | async"
+  class="dialog-content-center">
+  <p *ngSwitchCase="'Busy'" style="float: left;">Signing in...</p>
+  <md-spinner *ngSwitchCase="'Busy'" style="float: right;"
+    class="spinner-small"></md-spinner>
+  <p *ngSwitchCase="'Done'" style="float: left;">Signed in. Start adding and finding customers...</p>
+  <p *ngSwitchCase="'Failed'" style="float: left;">Error signing in. Please try again.</p>
+  <p *ngSwitchDefault style="float: left;">Please sign in. No credentials required.</p>
+  <span class="spacer"></span>
+
+</md-dialog-content>
+
+<md-dialog-actions [ngSwitch]="authService.status | async">
+  <button *ngSwitchCase="'Done'" (click)="gotoFindCustomer()"
+    type="submit" md-button [md-dialog-close]>
+      Find
+    </button>
+  <button *ngSwitchCase="'Done'" (click)="gotoNewCustomer()"
+    type="submit" md-button [md-dialog-close]>
+      Add
+    </button>
+  <button *ngSwitchDefault (click)="signIn()" type="submit"
+    md-button>
+      Sign In
+    </button>
+</md-dialog-actions>

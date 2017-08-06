@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class UserService {
   constructor() {
-    // this.token = ''
+    this.token = this.token;
   }
 
   token: string
@@ -19,7 +19,5 @@ export class UserService {
   setToken(token) {
     this.token = token
   }
-
-
 
 }

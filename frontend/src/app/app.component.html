@@ -5,13 +5,24 @@
       class="menu-button">
       <md-icon>menu</md-icon>
     </button>
+    <div class="title">Customers</div>
     <span class="spacer"></span>
-    <span>Customers</span>
-    <span class="spacer"></span>
+    <button md-icon-button routerLink="/new">
+      <md-icon >add</md-icon>
+    </button>
+    <button md-icon-button routerLink="/find">
+      <md-icon>search</md-icon>
+    </button>
     <button md-icon-button [mdMenuTriggerFor]="menu">
-      <md-icon>info_outline</md-icon>
+      <md-icon>more_vert</md-icon>
     </button>
     <md-menu #menu="mdMenu">
+      <button md-menu-item *ngIf="(user | async)?.uid" (click)="signOut()">
+        Sign Out
+      </button>
+      <button md-menu-item *ngIf="!(user | async)?.uid" (click)="signIn()">
+        Sign In
+      </button>
       <button md-menu-item (click)="gotoGithub()">
         <span>GitHub</span>
       </button>
@@ -22,39 +33,23 @@
     <md-nav-list>
       <md-list-item md-button routerLink="/find" routerLinkActive="active"
         (click)="sidenav.close()">
-        Find
+        Find Customers
       </md-list-item>
       <md-list-item md-button routerLink="/new" routerLinkActive="active"
         (click)="sidenav.close()">
-        Add
-      </md-list-item>
-      <md-list-item *ngIf="(user | async)?.uid" (click)="signOut(); sidenav.close()">
-        Sign Out
-      </md-list-item>
-      <md-list-item *ngIf="!(user | async)?.uid" (click)="signIn(); sidenav.close()">
-        Sign In
+        New Customer
       </md-list-item>
     </md-nav-list>
   </md-sidenav>
 
   <div class="content">
 
-    <md-card *ngIf="!(user | async)?.uid" class="card">
-      <md-card-header>
-        <md-card-title>Please sign in</md-card-title>
-      </md-card-header>
-      <md-card-content>
-        <span>No credentials required...just click.</span>
-      </md-card-content>
-      <md-card-actions>
-        <button *ngIf="!(user | async)?.uid && !loginPending"
-          (click)="signIn()" type="submit" md-button>
-          Sign In
-        </button>
-        <md-spinner *ngIf="authService.loading" class="spinner-small">
-        </md-spinner>
-      </md-card-actions>
-    </md-card>
+    <div *ngIf="!(user | async)?.uid" class="absolute-center">
+      <p>Please sign in...</p>
+      <button (click)="openDialog()" md-button>
+        Sign In
+      </button>
+    </div>
 
     <router-outlet *ngIf="(user | async)?.uid"></router-outlet>
 

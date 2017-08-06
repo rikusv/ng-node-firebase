@@ -1,9 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-
 body {
   margin: 0px;
+  font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
+}
+
+.title {
+  margin-left: 16px;
+}
+
+.absolute-center {
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.dialog-content-center {
+  text-align: center;
+  justify-content: center;
+}
+
+.dialog-actions {
+  /*justify-content: space-between;*/
 }
 
 .vertical-container {
@@ -11,7 +34,8 @@ body {
   flex-direction: column;
   height: 100%;
   width: 100vw;
-  align-items: center;;
+  align-items: center;
+  ;
   justify-content: center;
   align-content: center;
 }
@@ -24,7 +48,6 @@ body {
 .search-container-result {
   width: 100%;
 }
-
 
 .app-container {
   width: 100%;

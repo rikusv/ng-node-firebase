@@ -72,15 +72,11 @@ export class NewCustomerComponent implements OnInit {
           this.loading = false;
         }.bind(this), 500)
         // this.loading = false;
-        var message = err.hasOwnProperty('error') ? err.error : err;
-        if (message.hasOwnProperty('message')) {
-          if (message.hasOwnProperty('detail')) {
-            message = message.message + '. ' + message.detail;
-          } else {
-            message = message.message;
-          }
-        }
-        this.snackBar.open(message,
+        var error = err.hasOwnProperty('error') ? err.error : err,
+          message = error.hasOwnProperty('message') ? error.message : 'Unknown error',
+          detail = error.hasOwnProperty('detail') ? error.detail : '';
+        console.error('Error while posting', error);
+        this.snackBar.open(message + ' - ' + detail,
           'Okay',
           {
             duration: 5000,

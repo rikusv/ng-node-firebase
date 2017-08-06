@@ -20,7 +20,8 @@ import {
   MdCardModule,
   MdSnackBarModule,
   MdProgressSpinnerModule,
-  MdAutocompleteModule
+  MdAutocompleteModule,
+  MdDialogModule
 } from '@angular/material';
 
 import { environment } from '../environments/environment';
@@ -34,6 +35,7 @@ import { CustomerService } from './customer.service';
 import { AppComponent } from './app.component';
 import { NewCustomerComponent } from './new-customer/new-customer.component';
 import { FindCustomerComponent } from './find-customer/find-customer.component';
+import { LoginComponent } from './login/login.component';
 
 const appRoutes: Routes = [
   {
@@ -50,7 +52,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     NewCustomerComponent,
-    FindCustomerComponent
+    FindCustomerComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +78,8 @@ const appRoutes: Routes = [
     MdCardModule,
     MdSnackBarModule,
     MdProgressSpinnerModule,
-    MdAutocompleteModule
+    MdAutocompleteModule,
+    MdDialogModule
   ],
   providers: [
     CustomerService,
@@ -87,6 +91,7 @@ const appRoutes: Routes = [
       multi: true,
     }
   ],
+  entryComponents: [LoginComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -22,7 +22,7 @@ An Angular front-end web application accesses a Firebase database via a Node Exp
 > Try it:
 >
 > - Get customers with first name, last name, email or id number starting with "ja": [https://ng-node-firebase.herokuapp.com/api/v1/customers?$prefix=ja](https://ng-node-firebase.herokuapp.com/api/v1/customers?$prefix=ja).
-> - Get address suggestions for input '8 main': [https://ng-node-firebase.herokuapp.com/api/v1/_utils/autocomplete/address?input=8 main](https://ng-node-firebase.herokuapp.com/api//v1/_utils/autocomplete/address?input=8 main).
+> - Get address suggestions for input '8 main': [ [https://ng-node-firebase.herokuapp.com/api/v1/_utils/autocomplete/address?input=8 main](https://ng-node-firebase.herokuapp.com/api/v1/_utils/autocomplete/address?input=8%20main).
 
 The Express.js server:
 

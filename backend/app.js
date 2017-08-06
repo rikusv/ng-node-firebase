@@ -17,6 +17,9 @@ var elastic = require('./search-engine.js');
 // Get customer functions
 var customers = require('./customers.js');
 
+// Get Google Maps functions
+var maps = require('./maps.js');
+
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization, X-XSRF-TOKEN");
@@ -25,6 +28,21 @@ app.use(function(req, res, next) {
 
 app.route('/api/*')
   .post(checkAuth, jsonParser, checkJSON);
+
+app.route('/api/v1/_utils/autocomplete/address')
+  .get(function(req, res, next) {
+    if (req.query.input) {
+      // maps.autoComplete(req, res, next);
+      maps.autoComplete(req.query.input).then(function(result) {
+        res.json({data: result});
+      }).catch(function(error) {
+        console.log(error);
+        next(new Message('Auto Complete error', error));
+      });
+    } else {
+      next(new Message('Query not recognized. Use /api/utils/autocomplete?input=something'));
+    }
+  });
 
 app.route('/api/v1/customers')
   .post(customers.checkNewCustomer, customers.postNewCustomer)

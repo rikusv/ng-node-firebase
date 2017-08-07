@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import {MdDialog, MdDialogRef} from '@angular/material';
 import { NgForm, FormControl, Validators } from '@angular/forms';
 import {MdSnackBar} from '@angular/material';
 
@@ -15,7 +16,10 @@ import { AddressService } from '../address.service';
 import { Customer } from '../customer';
 import { CustomerService } from '../customer.service';
 
+import { LoginComponent } from '../login/login.component';
+
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+const ZA_ID_REGEX = /^\d{13}$/;
 
 @Component({
   selector: 'app-new-customer',
@@ -34,7 +38,8 @@ export class NewCustomerComponent implements OnInit {
     private customerService: CustomerService,
     private addressService: AddressService,
     private http: HttpClient,
-    public snackBar: MdSnackBar
+    public snackBar: MdSnackBar,
+    public dialog: MdDialog
   ) { }
 
   customer = new Customer()
@@ -48,8 +53,10 @@ export class NewCustomerComponent implements OnInit {
   emailFormControl = new FormControl('', [
     Validators.pattern(EMAIL_REGEX)]);
 
+  idNumberFormControl = new FormControl('', [
+    Validators.pattern(ZA_ID_REGEX)]);
+
   onSubmit() {
-    // this.dialog.open(DialogOverviewExampleDialog);
     this.loading = true;
     this.http
       .post(this.uri + '/customers', this.customer)
@@ -71,12 +78,18 @@ export class NewCustomerComponent implements OnInit {
         setTimeout(function() {
           this.loading = false;
         }.bind(this), 500)
-        // this.loading = false;
         var error = err.hasOwnProperty('error') ? err.error : err,
           message = error.hasOwnProperty('message') ? error.message : 'Unknown error',
-          detail = error.hasOwnProperty('detail') ? error.detail : '';
+          detail = error.hasOwnProperty('detail') ? error.detail : null;
+        if (detail) {
+          message = message + ' - ' + JSON.stringify(detail);
+        }
+        if (detail.hasOwnProperty('code') && detail['code'] === 'auth/argument-error') {
+          this.dialog.open(LoginComponent);
+        }
         console.error('Error while posting', error);
-        this.snackBar.open(message + ' - ' + detail,
+
+        this.snackBar.open(message,
           'Okay',
           {
             duration: 5000,

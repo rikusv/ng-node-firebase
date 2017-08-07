@@ -15,8 +15,11 @@
             name=lastName>
         </md-input-container>
         <md-input-container class="input-wide">
-          <input mdInput placeholder="ID Number" [(ngModel)]="customer.idNumber"
-            name=idNumber>
+          <input mdInput placeholder="ID Number" [formControl]="idNumberFormControl"
+            [(ngModel)]="customer.idNumber" name=idNumber>
+            <md-error *ngIf="idNumberFormControl.hasError('pattern')">
+              Please enter a valid SA ID number
+            </md-error>
         </md-input-container>
         <md-input-container class="input-wide">
           <input mdInput placeholder="Email" [formControl]="emailFormControl"
@@ -30,9 +33,9 @@
             name=phone>
         </md-input-container>
         <md-input-container class="input-wide">
-          <input mdInput #addressSearchBox placeholder="Address" [(ngModel)]="customer.address"
-            name=address [mdAutocomplete]="addressAuto"
-            (keyup)="search(addressSearchBox.value)">
+          <input mdInput #addressSearchBox placeholder="Address"
+            [(ngModel)]="customer.address" name=address
+            [mdAutocomplete]="addressAuto" (keyup)="search(addressSearchBox.value)">
         </md-input-container>
         <md-autocomplete #addressAuto="mdAutocomplete">
           <md-option *ngFor="let address of addresses | async"

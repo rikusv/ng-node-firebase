@@ -2,16 +2,21 @@
 
 ## What is this?
 
-A simple web application that captures customer information.
+A simple web application for capturing customer information. Try it [here](https://ng-node-firebase.herokuapp.com).
 
-- Required information is ID number, first name, surname and contact information (email, phone and address).
-- Customers must be persisted to a data store of your choice.
-- Provide a lookup/search into saved customers.
+- Sign In: The app requires to user to sign in. Sign-in uses Firebase anonymous authentication, but can be easily switched to Firebase's authentication using Google, Facebook, Email, etc. An authentication token is sent to the backend with all calls and checked on the database.
 
-Additional:
-- Provide integration into a map control and API for address capture and view
-- Search customers by location
-- Input validation
+- Add Customers: First name, last name, South Africa ID number (any 13 digit number), email (any valid email address), phone and address inputs are required. Address autocompletion is provided via the backend using Google Place API limited to South African address. The backend uses Google Maps API to augment the entered address with its formal version (e.g. including postal code) and geographic coordinates and then persists the data to Firebase. The backend also listens to data changes and updates an Elasticsearch index.
+
+- Find Customers: A simple search function is provided using a single input field. The input is used for prefix search on first name, last name, ID number and email, and match search on address and formal address. This means input 'Ge' will match customers with names starting with 'ge' but not with address '1 Main Street, George'; however input 'George' will also match this address.
+
+- Find Customers using the API: more flexible searching is possible using the service directly. For example, [customers?$search=ge&$prefix=lastName](https://ng-node-firebase.herokuapp.com/api/v1/customers?$search=ge&$prefix=lastName) will limit the prefix search to last name, and [customers?$search=george&$prefix=firstName&$match=none](https://ng-node-firebase.herokuapp.com/api/v1/customers?$search=george&$prefix=firstName&$match=none) will limit the prefix search to first name and exclude match results (i.e. town 'George' will not match).
+
+> ### To Do
+>
+> - Provide customer address map view
+> - Improve search by location
+> - Add further input validation in back- and frontend.
 
 ## How does it work?
 
@@ -39,8 +44,6 @@ The Express.js server:
 - Checks that the user token sent with POST requests corresponds to a valid user in the database (i.e. that user is logged in).
 - Queries Elasticsearch and sends JSON result for valid requests like `/api/v1/customers?search=something`.
 - Queries Google Places API and sends JSON results for valid requests like `/api/v1/_utils/autocomplete/address?input=8 main`.
-
-
 
 ### Frontend app
 

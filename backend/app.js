@@ -34,7 +34,9 @@ app.route('/api/v1/_utils/autocomplete/address')
     if (req.query.input) {
       // maps.autoComplete(req, res, next);
       maps.autoComplete(req.query.input).then(function(result) {
-        res.json({data: result});
+        res.json({
+          data: result
+        });
       }).catch(function(error) {
         console.log(error);
         next(new Message('Auto Complete error', error));
@@ -47,11 +49,7 @@ app.route('/api/v1/_utils/autocomplete/address')
 app.route('/api/v1/customers')
   .post(customers.checkNewCustomer, customers.postNewCustomer)
   .get(function(req, res, next) {
-    if (req.query.$prefix) {
-      customers.searchCustomers(req, res, next);
-    } else {
-      next(new Message('Query not recognized. Use /api/v1/customers?$prefix=something'));
-    }
+    customers.searchCustomers(req, res, next);
   });
 
 app.route('/api/*')
@@ -60,7 +58,7 @@ app.route('/api/*')
     next(new Message('Endpoint not found', {
       'options': [
         'Post new customer record to /api/v1/customers',
-        'Search for customers using /api/v1/customers?$prefix=something'
+        'Search for customers using /api/v1/customers?$search=something'
       ]
     }));
   });
@@ -69,7 +67,6 @@ app.use(handleError);
 
 function handleError(err, req, res, next) {
   try {
-    err.severity = 'error';
     if (res.headersSent) {
       return next(err);
     }
@@ -96,7 +93,7 @@ function checkAuth(req, res, next) {
       });
   } catch (e) {
     console.log(e);
-    next(new Message('Something went wrong while trying to authenticate user'));
+    next(new Message('Something went wrong while trying to authenticate user', e));
   }
 }
 

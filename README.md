@@ -21,18 +21,32 @@ An Angular front-end web application accesses a Firebase database via a Node Exp
 
 > Try it:
 >
-> - Get customers with first name, last name, email or id number starting with "ja": [https://ng-node-firebase.herokuapp.com/api/v1/customers?$prefix=ja](https://ng-node-firebase.herokuapp.com/api/v1/customers?$prefix=ja).
 > - Get address suggestions for input '8 main': [ [https://ng-node-firebase.herokuapp.com/api/v1/_utils/autocomplete/address?input=8 main](https://ng-node-firebase.herokuapp.com/api/v1/_utils/autocomplete/address?input=8%20main).
+> - Search customers: [https://ng-node-firebase.herokuapp.com/api/v1/customers?$search=ja](https://ng-node-firebase.herokuapp.com/api/v1/customers?$search=ja).
+>
+> API quick reference:
+>
+> - $search=something : search for 'something' using standard settings.
+> - $search=something&$prefix=firstName,lastName : limit prefix search to first and last name only
+> - $search=something&prefix=none : don't use prefix search
+> - as above for $match
+> - the set of fields are: idNumber, firstName, lastName, email, phone, address, address_full.
 
 The Express.js server:
 
 - Listens to Firebase changes and updates an index on Elasticsearch.
 - Responds to requests at `/api`.
 - Checks that the user token sent with POST requests corresponds to a valid user in the database (i.e. that user is logged in).
-- Queries Elasticsearch and sends JSON result for valid requests like `/api/v1/customers?$prefix=something`.
+- Queries Elasticsearch and sends JSON result for valid requests like `/api/v1/customers?search=something`.
 - Queries Google Places API and sends JSON results for valid requests like `/api/v1/_utils/autocomplete/address?input=8 main`.
 
+
+
 ### Frontend app
+
+> Try it:
+>
+> [https://ng-node-firebase.herokuapp.com](https://ng-node-firebase.herokuapp.com)
 
 The Angular app lets user:
 

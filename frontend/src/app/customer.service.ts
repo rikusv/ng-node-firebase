@@ -18,7 +18,7 @@ export class CustomerService {
 
   search(term: string): Observable<Customer[]> {
     return this.http
-      .get(this.uri + `/customers?$prefix=${term}`)
+      .get(this.uri + `/customers?$search=${term}`)
       .map(response => response.json().data as Customer[]);
   }
 }
